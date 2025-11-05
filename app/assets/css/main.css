@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme {
+  /* --font-sans: "Arial", sans-serif; */
+  --color-my-purple: #281234;
+  --color-my-blue: #142f4d;
+  --color-my-gray: #1d1e21;
+}
+
+:root {
+  --ui-radius: 0rem;
+}
+
+.dark {
+  --ui-text: white;
+  --ui-text-inverted: white;
+}
