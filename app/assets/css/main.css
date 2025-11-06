@@ -3,9 +3,9 @@
 
 @theme {
   /* --font-sans: "Arial", sans-serif; */
-  --color-my-purple: #281234;
-  --color-my-blue: #142f4d;
-  --color-my-gray: #1d1e21;
+  --color-my-purple: hsla(279, 69%, 29%, 0.949);
+  --color-my-blue: #134e68ec;
+  --color-my-gray: #333436ed;
 }
 
 :root {

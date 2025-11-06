@@ -13,7 +13,11 @@ export function parseTimerInput(str: string): number | null {
   return null;
 }
 
-export function computeElapsedTime(fromMs: number, toMs: number) {
+export function computeElapsedTime(
+  fromMs: number,
+  toMs: number,
+  addMinutePadding = false
+): string {
   const elapsedMs = toMs - fromMs;
   const totalMinutes = Math.floor(elapsedMs / (60 * 1000));
   const hours = Math.floor(totalMinutes / 60);
@@ -23,5 +27,13 @@ export function computeElapsedTime(fromMs: number, toMs: number) {
     return "";
   }
 
-  return hours ? `${hours}h${minutes ? minutes : ""}` : `${minutes}`;
+  return hours
+    ? `${hours}h${
+        minutes
+          ? addMinutePadding
+            ? minutes.toString().padStart(2, "0")
+            : minutes
+          : ""
+      }`
+    : `${minutes}`;
 }

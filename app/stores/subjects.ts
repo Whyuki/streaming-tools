@@ -131,6 +131,7 @@ export const useSubjectsStore = defineStore("subject", () => {
     startTime.value = new Date();
   }
 
+  // ? TODO : skip empty subjects or show empty subjects in overlay?
   function nextSubject() {
     if (activeSubjectIndex.value === null) return;
 
@@ -141,11 +142,17 @@ export const useSubjectsStore = defineStore("subject", () => {
 
     activeSubjectIndex.value++;
 
-    const nextSubject = subjects.value[activeSubjectIndex.value];
-    if (!nextSubject) return;
+    const upcomingSubject = subjects.value[activeSubjectIndex.value];
+    if (!upcomingSubject) return;
 
-    nextSubject.status = "active";
-    nextSubject.startTime = new Date();
+    upcomingSubject.startTime = new Date();
+
+    if (upcomingSubject.title.trim() === "") {
+      nextSubject();
+      return;
+    }
+
+    upcomingSubject.status = "active";
   }
 
   function previousSubject() {
@@ -161,6 +168,11 @@ export const useSubjectsStore = defineStore("subject", () => {
 
     const prevSubject = subjects.value[activeSubjectIndex.value];
     if (!prevSubject) return;
+
+    if (prevSubject.title.trim() === "") {
+      previousSubject();
+      return;
+    }
 
     prevSubject.status = "active";
   }

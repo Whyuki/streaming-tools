@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 gap-2 p-2">
+  <div class="grid grid-cols-2 gap-2 mb-4">
     <UPopover
       :content="{
         align: 'end',
@@ -103,7 +103,7 @@
       "
     />
   </div>
-  <div v-if="subjectsStore.startTime" class="flex gap-2 items-center">
+  <div v-if="subjectsStore.startTime" class="flex gap-2 items-center mb-4">
     <p>Stream depuis</p>
     <UInput
       type="text"
@@ -156,7 +156,7 @@ watch(
   }
 );
 
-effect(() => {
+onMounted(() => {
   const interval = setInterval(() => {
     const newElapsedTime = computeElapsedTime(
       subjectsStore.startTime?.getTime() ?? Date.now(),

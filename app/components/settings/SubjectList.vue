@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-4 gap-2 p-2">
+  <div class="grid grid-cols-4 gap-2 my-2">
     <h2 class="text-xl font-bold col-span-2">Sujets</h2>
     <UButton
       :disabled="
@@ -24,7 +24,7 @@
       >Suivant</UButton
     >
   </div>
-  <div class="p-2">
+  <div>
     <ol>
       <li
         v-for="subject in subjectsStore.subjects"
@@ -37,9 +37,10 @@
           'border-purple-600': subject.status === 'active',
           'border-gray-600': subject.status === 'upcoming',
         }"
+        class="border-l-4"
       >
         <UForm
-          class="mb-2 flex justify-between border-l-4"
+          class="mb-2 flex justify-between"
           @submit.prevent="
             (event) => {
               console.log('form event:', event.type);
@@ -49,9 +50,9 @@
         >
           <div
             v-if="subject.id !== editModeSubjectId"
-            class="flex flex-col justify-between p-2 grow"
+            class="flex flex-col justify-between p-2 grow min-w-0"
           >
-            <p class="font-bold text-lg">
+            <p class="font-bold text-lg overflow-hidden wrap-break-word w-full">
               {{ subject.title }}
             </p>
             <div class="flex justify-between">
@@ -74,7 +75,8 @@
                   subject.startTime && subjectsStore.startTime
                     ? computeElapsedTime(
                         subjectsStore.startTime.getTime(),
-                        subject.startTime.getTime()
+                        subject.startTime.getTime(),
+                        true
                       )
                     : 0
                 }}
@@ -201,12 +203,7 @@
             <div>
               <UBadge
                 size="sm"
-                class="uppercase font-bold text-white"
-                :class="{
-                  'bg-cyan-900': subject.status === 'finished',
-                  'bg-purple-950': subject.status === 'active',
-                  'bg-gray-900': subject.status === 'upcoming',
-                }"
+                class="uppercase font-bold text-white bg-gray-900/40"
               >
                 {{
                   subject.status === "finished"
@@ -245,7 +242,7 @@
         </UForm>
       </li>
     </ol>
-    <div class="flex justify-center">
+    <div class="flex justify-center mt-4">
       <UButton icon="ic:sharp-plus" @click="addNewSubject()"
         >Ajouter un sujet</UButton
       >
