@@ -71,8 +71,8 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
-      - name: test
-        run: env
+      - name: test ${{ vars.NUXT_APP_BASE_URL }}
+        run: echo "${ vars.NUXT_APP_BASE_URL }"
       - name: Static HTML export with Nuxt
         run: ${{ steps.detect-package-manager.outputs.manager }} run build:github-pages
       - name: Upload artifact
