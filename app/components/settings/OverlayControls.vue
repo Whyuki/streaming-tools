@@ -6,11 +6,16 @@
         side: 'bottom',
       }"
     >
-      <UButton block>Nouveau programme</UButton>
+      <UButton
+        block
+        variant="soft"
+        color="error"
+        >Nouveau sommaire</UButton
+      >
       <template #content="{ close }">
-        <div class="flex w-80 flex-col bg-slate-950 p-4">
-          <p>Êtes-vous sûr de vouloir créer un nouveau programme ?</p>
-          <p class="mb-4">Cela réinitialisera le stream en cours et supprimera tous les sujets.</p>
+        <div class="flex w-120 flex-col bg-slate-950 p-4">
+          <p>Êtes-vous sûr de vouloir créer un nouveau sommaire ?</p>
+          <p class="mb-4">Cela réinitialisera toutes les données.</p>
           <div class="flex justify-end">
             <UButton
               class="bg-red-800 hover:bg-red-700"
@@ -32,9 +37,10 @@
     <UButton
       v-if="!subjectsStore.startTime"
       block
+      class="bg-emerald-800 hover:bg-emerald-700"
       @click.prevent="subjectsStore.startStream"
     >
-      Démarrer le stream
+      Démarrer le sommaire
     </UButton>
     <UPopover
       v-else
@@ -43,15 +49,21 @@
         side: 'bottom',
       }"
     >
-      <UButton block> Redémarrer le stream </UButton>
+      <UButton
+        block
+        variant="soft"
+        color="warning"
+      >
+        Redémarrer le sommaire
+      </UButton>
       <template
         v-if="subjectsStore.startTime"
         #content="{ close }"
       >
-        <div class="flex w-80 flex-col bg-slate-950 p-4">
-          <p>Êtes-vous sûr de vouloir redémarrer le stream ?</p>
+        <div class="flex w-120 flex-col bg-slate-950 p-4">
+          <p>Êtes-vous sûr de vouloir redémarrer le sommaire ?</p>
           <p class="mb-4">
-            Cela réinitialisera l'heure de début du stream ainsi que l'état d'avancement des sujets.
+            Cela réinitialisera uniquement l'heure de début ainsi que l'état d'avancement des sujets.
           </p>
           <div class="flex justify-end">
             <UButton
@@ -71,11 +83,11 @@
       </template>
     </UPopover>
   </div>
-  <div class="flex items-center justify-between">
-    <div
-      v-if="subjectsStore.startTime"
-      class="flex items-center gap-2"
-    >
+  <div
+    v-if="subjectsStore.startTime"
+    class="flex items-center justify-between"
+  >
+    <div class="flex items-center gap-2">
       <p>Heure de début du stream</p>
 
       <UInput
@@ -188,6 +200,12 @@
       </UPopover>
     </p>
   </div>
+  <p
+    v-else
+    class="flex justify-center text-slate-200"
+  >
+    Le sommaire n'a pas encore commencé
+  </p>
 </template>
 
 <script setup lang="ts">

@@ -10,8 +10,8 @@
         tooltip
         :ui="{
           track: 'rounded-none',
-          thumb: 'rounded-none',
-          range: 'rounded-none',
+          thumb: 'rounded-none ring-0 bg-cyan-800',
+          range: 'rounded-none bg-cyan-600',
         }"
       />
       <UFieldGroup>

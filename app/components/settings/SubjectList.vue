@@ -4,7 +4,7 @@
     <UButton
       :disabled="subjectsStore.activeSubjectIndex === null || subjectsStore.activeSubjectIndex < 0"
       icon="ic:sharp-keyboard-arrow-left"
-      class="justify-center"
+      class="justify-center bg-cyan-800 hover:bg-cyan-700 disabled:bg-cyan-800"
       @click="previousSubject"
       >Précédent</UButton
     >
@@ -16,7 +16,7 @@
       icon="ic:sharp-keyboard-arrow-right"
       trailing
       :ui="{ trailingIcon: 'ms-[initial]' }"
-      class="justify-center"
+      class="justify-center bg-cyan-800 hover:bg-cyan-700 disabled:bg-cyan-800"
       @click="nextSubject"
       >Suivant</UButton
     >
@@ -110,7 +110,7 @@
                 class="flex-1"
                 :ui="{
                   itemLeadingAvatar: 'rounded-none',
-                  tagsItem: 'p-[1px]',
+                  tagsItem: 'p-px',
                   tagsItemDeleteIcon: 'size-4',
                 }"
                 @update:model-value="updateSources"
@@ -164,7 +164,7 @@
                 size="md"
                 :variant="subject.id === editModeSubjectId ? 'solid' : 'ghost'"
                 :class="{
-                  'bg-green-700 text-slate-100 hover:bg-green-600 hover:text-white':
+                  'bg-green-800 text-slate-100 hover:bg-green-700 hover:text-white':
                     subject.id === editModeSubjectId,
                   'text-slate-100 hover:text-white': subject.id !== editModeSubjectId,
                 }"
@@ -226,7 +226,7 @@
               }"
               icon="ic:sharp-arrow-drop-up"
               size="md"
-              color="primary"
+              class="bg-cyan-900 hover:bg-cyan-800 disabled:bg-cyan-900 disabled:hover:bg-cyan-900"
               variant="solid"
               @click="subjectsStore.moveSubject(subject.id, 'up')"
             />
@@ -237,7 +237,7 @@
               }"
               icon="ic:sharp-arrow-drop-down"
               size="md"
-              color="primary"
+              class="bg-cyan-900 hover:bg-cyan-800 disabled:bg-cyan-900 disabled:hover:bg-cyan-900"
               variant="solid"
               @click="subjectsStore.moveSubject(subject.id, 'down')"
             />
@@ -248,6 +248,8 @@
     <div class="mt-4 flex justify-center">
       <UButton
         icon="ic:sharp-plus"
+        variant="soft"
+        color="neutral"
         @click="addNewSubject()"
         >Ajouter un sujet</UButton
       >

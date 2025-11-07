@@ -2,7 +2,7 @@
   <UAccordion
     type="multiple"
     :items="computedSubjects"
-    class="mt-4 bg-slate-950/30 p-1"
+    class="mt-4 bg-slate-950/30 px-4"
   >
     <template #overlay-customization>
       <SettingsOverlayCustomization
