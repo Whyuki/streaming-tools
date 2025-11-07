@@ -22,9 +22,11 @@
         />
 
         <div
-          class="inline-flex items-start gap-1 flex-col flex-1 min-w-0 ms-1.5"
+          class="flex flex-wrap items-start justify-between flex-1 min-w-0 ms-1.5"
         >
-          <p class="text-xl overflow-hidden wrap-break-word w-full">
+          <p
+            class="text-xl overflow-hidden wrap-break-word max-w-full flex-none"
+          >
             {{ subject.title }}
             <span
               v-if="subject.sources.length === 0 && !props.small"
@@ -33,7 +35,7 @@
           </p>
           <ul
             v-if="!props.small && subject.sources.length > 0"
-            class="whitespace-nowrap overflow-hidden text-ellipsis w-full pr-20"
+            class="whitespace-nowrap overflow-hidden text-ellipsis max-w-full pr-20"
           >
             <li
               v-for="source in subject.sources"
