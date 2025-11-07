@@ -1,11 +1,8 @@
 <template>
-  <div class="grid grid-cols-4 gap-2 mt-10 mb-4">
-    <h2 class="text-xl font-bold col-span-2">Sujets</h2>
+  <div class="mt-10 mb-4 grid grid-cols-4 gap-2">
+    <h2 class="col-span-2 text-xl font-bold">Sujets</h2>
     <UButton
-      :disabled="
-        subjectsStore.activeSubjectIndex === null ||
-        subjectsStore.activeSubjectIndex < 0
-      "
+      :disabled="subjectsStore.activeSubjectIndex === null || subjectsStore.activeSubjectIndex < 0"
       icon="ic:sharp-keyboard-arrow-left"
       class="justify-center"
       @click="previousSubject"
@@ -43,16 +40,16 @@
           class="mb-2 flex justify-between"
           @submit.prevent="
             (event) => {
-              console.log('form event:', event.type);
-              toggleEditMode(subject.id);
+              console.log('form event:', event.type)
+              toggleEditMode(subject.id)
             }
           "
         >
           <div
             v-if="subject.id !== editModeSubjectId"
-            class="flex flex-col justify-between p-2 grow min-w-0"
+            class="flex min-w-0 grow flex-col justify-between p-2"
           >
-            <p class="font-bold text-lg overflow-hidden wrap-break-word w-full">
+            <p class="w-full overflow-hidden text-lg font-bold wrap-break-word">
               {{ subject.title }}
             </p>
             <div class="flex justify-between">
@@ -65,18 +62,25 @@
                   <img
                     :src="source.logo"
                     :alt="source.label"
-                    class="w-5 h-5 object-contain"
+                    class="h-5 w-5 object-contain"
                   />
                 </li>
               </ul>
-              <span v-if="subject.startTime" class="flex items-center">
-                <UIcon name="ic:sharp-timer" size="20" class="mr-1" />
+              <span
+                v-if="subject.startTime"
+                class="flex items-center"
+              >
+                <UIcon
+                  name="ic:sharp-timer"
+                  size="20"
+                  class="mr-1"
+                />
                 {{
                   subject.startTime && subjectsStore.startTime
                     ? computeElapsedTime(
                         subjectsStore.startTime.getTime(),
                         subject.startTime.getTime(),
-                        true
+                        true,
                       )
                     : 0
                 }}
@@ -85,10 +89,13 @@
             </div>
           </div>
 
-          <div v-else class="flex flex-col justify-between p-2 grow">
+          <div
+            v-else
+            class="flex grow flex-col justify-between p-2"
+          >
             <UInput
               v-model="subject.title"
-              class="font-bold text-lg"
+              class="text-lg font-bold"
               placeholder="Titre du sujet"
               autofocus
             />
@@ -130,19 +137,17 @@
                   subject.startTime && subjectsStore.startTime
                     ? computeElapsedTime(
                         subjectsStore.startTime.getTime(),
-                        subject.startTime.getTime()
+                        subject.startTime.getTime(),
                       )
                     : ''
                 "
                 @update:model-value="
                   (e) => {
                     if (subject.startTime && subjectsStore.startTime) {
-                      const timerInput = parseTimerInput(e);
+                      const timerInput = parseTimerInput(e)
                       if (timerInput !== null) {
-                        const newDate = new Date(
-                          subjectsStore.startTime.getTime() + timerInput
-                        );
-                        subject.startTime = newDate;
+                        const newDate = new Date(subjectsStore.startTime.getTime() + timerInput)
+                        subject.startTime = newDate
                       }
                     }
                   }
@@ -154,19 +159,14 @@
           <div class="flex flex-col items-end justify-between p-2">
             <div class="flex">
               <UButton
-                :icon="
-                  subject.id === editModeSubjectId
-                    ? 'ic:sharp-check'
-                    : 'ic:sharp-edit'
-                "
+                :icon="subject.id === editModeSubjectId ? 'ic:sharp-check' : 'ic:sharp-edit'"
                 type="submit"
                 size="md"
                 :variant="subject.id === editModeSubjectId ? 'solid' : 'ghost'"
                 :class="{
-                  ' bg-green-700 text-slate-100 hover:bg-green-600 hover:text-white':
+                  'bg-green-700 text-slate-100 hover:bg-green-600 hover:text-white':
                     subject.id === editModeSubjectId,
-                  'text-slate-100 hover:text-white':
-                    subject.id !== editModeSubjectId,
+                  'text-slate-100 hover:text-white': subject.id !== editModeSubjectId,
                 }"
               />
 
@@ -180,16 +180,14 @@
                   icon="ic:sharp-delete"
                   size="md"
                   variant="ghost"
-                  class="hover:text-red-700 text-slate-300"
+                  class="text-slate-300 hover:text-red-700"
                 />
 
                 <template #content>
-                  <div class="flex flex-col p-4 bg-slate-950">
-                    <p class="mb-4 overflow-hidden wrap-break-word w-125">
+                  <div class="flex flex-col bg-slate-950 p-4">
+                    <p class="mb-4 w-125 overflow-hidden wrap-break-word">
                       Êtes-vous sûr de vouloir supprimer le sujet
-                      <span class="font-medium text-orange-300">{{
-                        subject.title
-                      }}</span>
+                      <span class="font-medium text-orange-300">{{ subject.title }}</span>
                       ?
                     </p>
                     <div class="flex justify-end">
@@ -208,14 +206,14 @@
             <div>
               <UBadge
                 size="sm"
-                class="uppercase font-bold text-white bg-gray-900/40"
+                class="bg-gray-900/40 font-bold text-white uppercase"
               >
                 {{
-                  subject.status === "finished"
-                    ? "Terminé"
-                    : subject.status === "active"
-                    ? "En cours"
-                    : "À venir"
+                  subject.status === 'finished'
+                    ? 'Terminé'
+                    : subject.status === 'active'
+                      ? 'En cours'
+                      : 'À venir'
                 }}
               </UBadge>
             </div>
@@ -247,8 +245,10 @@
         </UForm>
       </li>
     </ol>
-    <div class="flex justify-center mt-4">
-      <UButton icon="ic:sharp-plus" @click="addNewSubject()"
+    <div class="mt-4 flex justify-center">
+      <UButton
+        icon="ic:sharp-plus"
+        @click="addNewSubject()"
         >Ajouter un sujet</UButton
       >
     </div>
@@ -256,129 +256,125 @@
 </template>
 
 <script setup lang="ts">
-//TODO: add cancel button on edit mode
-import { useSubjectsStore } from "~/stores/subjects";
+  //TODO: add cancel button on edit mode
+  import { useSubjectsStore } from '~/stores/subjects'
 
-const subjectsStore = useSubjectsStore();
+  const subjectsStore = useSubjectsStore()
 
-const editModeSubjectId = ref<number | null>(null);
+  const editModeSubjectId = ref<number | null>(null)
 
-function addNewSubject() {
-  subjectsStore.addSubject({
-    title: "",
-    status: "upcoming",
-    startTime: null,
-    sources: [],
-  });
+  function addNewSubject() {
+    subjectsStore.addSubject({
+      title: '',
+      status: 'upcoming',
+      startTime: null,
+      sources: [],
+    })
 
-  const last = subjectsStore.subjects[subjectsStore.subjects.length - 1];
-  if (last) {
-    editModeSubjectId.value = last.id;
+    const last = subjectsStore.subjects[subjectsStore.subjects.length - 1]
+    if (last) {
+      editModeSubjectId.value = last.id
+    }
   }
-}
 
-function toggleEditMode(subjectId: number) {
-  console.log(
-    "Toggling edit mode for subject ID:",
-    subjectId,
-    editModeSubjectId.value
-  );
-  if (editModeSubjectId.value === subjectId) {
-    editModeSubjectId.value = null;
-  } else {
-    editModeSubjectId.value = subjectId;
+  function toggleEditMode(subjectId: number) {
+    console.log('Toggling edit mode for subject ID:', subjectId, editModeSubjectId.value)
+    if (editModeSubjectId.value === subjectId) {
+      editModeSubjectId.value = null
+    } else {
+      editModeSubjectId.value = subjectId
+    }
   }
-}
 
-const items = ref<SourceItem[]>([
-  {
-    value: "liberation",
-    label: "Libération",
-    avatar: { src: "/logos/liberation.jpg", alt: "Libération" },
-  },
-  {
-    value: "lemonde",
-    label: "Le Monde",
-    avatar: { src: "/logos/le_monde.png", alt: "Le Monde" },
-  },
-  {
-    value: "lefigaro",
-    label: "Le Figaro",
-    avatar: { src: "/logos/figaro.png", alt: "Le Figaro" },
-  },
-  {
-    value: "lacroix",
-    label: "La Croix",
-    avatar: { src: "/logos/la_croix.png", alt: "La Croix" },
-  },
-  {
-    value: "leparisien",
-    label: "Le Parisien",
-    avatar: { src: "/logos/le_parisien.png", alt: "Le Parisien" },
-  },
-  {
-    value: "lhumanite",
-    label: "L'Humanité",
-    avatar: { src: "/logos/l_humanite.png", alt: "L'Humanité" },
-  },
-  {
-    value: "lesechos",
-    label: "Les Échos",
-    avatar: { src: "/logos/Les_Echos.png", alt: "Les Échos" },
-  },
-  {
-    value: "lequipe",
-    label: "L'Équipe",
-    avatar: { src: "/logos/l_Equipe.png", alt: "L'Équipe" },
-  },
-  {
-    value: "lopinion",
-    label: "L'Opinion",
-    avatar: { src: "/logos/l_opinion.png", alt: "L'Opinion" },
-  },
-]);
+  const items = ref<SourceItem[]>([
+    {
+      value: 'liberation',
+      label: 'Libération',
+      avatar: { src: '/logos/liberation.jpg', alt: 'Libération' },
+    },
+    {
+      value: 'lemonde',
+      label: 'Le Monde',
+      avatar: { src: '/logos/le_monde.png', alt: 'Le Monde' },
+    },
+    {
+      value: 'lefigaro',
+      label: 'Le Figaro',
+      avatar: { src: '/logos/figaro.png', alt: 'Le Figaro' },
+    },
+    {
+      value: 'lacroix',
+      label: 'La Croix',
+      avatar: { src: '/logos/la_croix.png', alt: 'La Croix' },
+    },
+    {
+      value: 'leparisien',
+      label: 'Le Parisien',
+      avatar: { src: '/logos/le_parisien.png', alt: 'Le Parisien' },
+    },
+    {
+      value: 'lhumanite',
+      label: "L'Humanité",
+      avatar: { src: '/logos/l_humanite.png', alt: "L'Humanité" },
+    },
+    {
+      value: 'lesechos',
+      label: 'Les Échos',
+      avatar: { src: '/logos/Les_Echos.png', alt: 'Les Échos' },
+    },
+    {
+      value: 'lequipe',
+      label: "L'Équipe",
+      avatar: { src: '/logos/l_Equipe.png', alt: "L'Équipe" },
+    },
+    {
+      value: 'lopinion',
+      label: "L'Opinion",
+      avatar: { src: '/logos/l_opinion.png', alt: "L'Opinion" },
+    },
+  ])
 
-interface SourceItem {
-  label: string;
-  value: string;
-  avatar: { src: string; alt: string };
-}
+  interface SourceItem {
+    label: string
+    value: string
+    avatar: { src: string; alt: string }
+  }
 
-function updateSources(selectedItems: SourceItem[]) {
-  console.log("Selected items:", selectedItems);
-  if (editModeSubjectId.value === null) return;
+  function updateSources(selectedItems: SourceItem[]) {
+    console.log('Selected items:', selectedItems)
+    if (editModeSubjectId.value === null) return
 
-  const subject = subjectsStore.getSubjectById(editModeSubjectId.value);
-  if (!subject) return;
+    const subject = subjectsStore.getSubjectById(editModeSubjectId.value)
+    if (!subject) return
 
-  subjectsStore.updateSubject(editModeSubjectId.value, {
-    ...subject,
-    sources: selectedItems.map((item) => ({
-      id: item.value,
-      label: item.label,
-      logo: item.avatar.src,
-    })),
-  });
-}
+    subjectsStore.updateSubject(editModeSubjectId.value, {
+      ...subject,
+      sources: selectedItems.map((item) => ({
+        id: item.value,
+        label: item.label,
+        logo: item.avatar.src,
+      })),
+    })
+  }
 
-const computedSources = computed(() => {
-  if (editModeSubjectId.value === null) return [];
+  const computedSources = computed(() => {
+    if (editModeSubjectId.value === null) return []
 
-  const subject = subjectsStore.getSubjectById(editModeSubjectId.value);
-  if (!subject) return [];
+    const subject = subjectsStore.getSubjectById(editModeSubjectId.value)
+    if (!subject) return []
 
-  return subject.sources.map((source) => ({
-    label: source.label,
-    value: source.id,
-    avatar: { src: source.logo, alt: source.label },
-  }));
-});
+    return subject.sources.map((source) => ({
+      label: source.label,
+      value: source.id,
+      avatar: { src: source.logo, alt: source.label },
+    }))
+  })
 
-function nextSubject() {
-  subjectsStore.nextSubject();
-}
+  function nextSubject() {
+    subjectsStore.nextSubject()
+  }
 
-function previousSubject() {
-  subjectsStore.previousSubject();
-}
+  function previousSubject() {
+    subjectsStore.previousSubject()
+  }
 </script>

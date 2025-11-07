@@ -1,14 +1,23 @@
 <template>
   <div class="inline-flex">
-    <div id="settings" class="w-150 max-h-screen overflow-y-scroll p-2 pb-16">
+    <div
+      id="settings"
+      class="max-h-screen w-150 overflow-y-scroll p-2 pb-16"
+    >
       <SettingsOverlayControls />
       <SettingsSubjectList />
       <SettingsOptionsAccordion />
     </div>
-    <div id="overlay" class="ms-8">
+    <div
+      id="overlay"
+      class="ms-8"
+    >
       <OverlayObs :style="{ width: overlayStore.overlayWidth + 'px' }" />
     </div>
-    <div id="overlay" class="ms-16">
+    <div
+      id="overlay"
+      class="ms-16"
+    >
       <OverlayObs
         :style="{ width: overlayStore.smallOverlayWidth + 'px' }"
         small
@@ -18,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { useOverlayStore } from "~/stores/overlay";
+  import { useOverlayStore } from '~/stores/overlay'
 
-const overlayStore = useOverlayStore();
+  const overlayStore = useOverlayStore()
 </script>

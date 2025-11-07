@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="text-sm">{{ props.label }}</h3>
-    <div class="flex m-2 justify-center gap-2">
+    <div class="m-2 flex justify-center gap-2">
       <USlider
         v-model="width"
         :min="props.min"
@@ -23,17 +23,22 @@
           class="w-18"
         >
         </UInputNumber>
-        <UBadge class="" color="neutral" variant="outline">px</UBadge>
+        <UBadge
+          class=""
+          color="neutral"
+          variant="outline"
+          >px</UBadge
+        >
       </UFieldGroup>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const width = defineModel<number>();
-const props = defineProps<{
-  min: number;
-  max: number;
-  label: string;
-}>();
+  const width = defineModel<number>()
+  const props = defineProps<{
+    min: number
+    max: number
+    label: string
+  }>()
 </script>

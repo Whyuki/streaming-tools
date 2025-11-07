@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 gap-2 mb-4">
+  <div class="mb-4 grid grid-cols-2 gap-2">
     <UPopover
       :content="{
         align: 'end',
@@ -8,20 +8,17 @@
     >
       <UButton block>Nouveau programme</UButton>
       <template #content="{ close }">
-        <div class="flex flex-col p-4 bg-slate-950 w-80">
+        <div class="flex w-80 flex-col bg-slate-950 p-4">
           <p>Êtes-vous sûr de vouloir créer un nouveau programme ?</p>
-          <p class="mb-4">
-            Cela réinitialisera le stream en cours et supprimera tous les
-            sujets.
-          </p>
+          <p class="mb-4">Cela réinitialisera le stream en cours et supprimera tous les sujets.</p>
           <div class="flex justify-end">
             <UButton
               class="bg-red-800 hover:bg-red-700"
               variant="solid"
               @click="
                 () => {
-                  subjectsStore.reset();
-                  close();
+                  subjectsStore.reset()
+                  close()
                 }
               "
             >
@@ -47,12 +44,14 @@
       }"
     >
       <UButton block> Redémarrer le stream </UButton>
-      <template v-if="subjectsStore.startTime" #content="{ close }">
-        <div class="flex flex-col p-4 bg-slate-950 w-80">
+      <template
+        v-if="subjectsStore.startTime"
+        #content="{ close }"
+      >
+        <div class="flex w-80 flex-col bg-slate-950 p-4">
           <p>Êtes-vous sûr de vouloir redémarrer le stream ?</p>
           <p class="mb-4">
-            Cela réinitialisera l'heure de début du stream ainsi que l'état
-            d'avancement des sujets.
+            Cela réinitialisera l'heure de début du stream ainsi que l'état d'avancement des sujets.
           </p>
           <div class="flex justify-end">
             <UButton
@@ -60,8 +59,8 @@
               variant="solid"
               @click="
                 () => {
-                  subjectsStore.startStream();
-                  close();
+                  subjectsStore.startStream()
+                  close()
                 }
               "
             >
@@ -73,7 +72,10 @@
     </UPopover>
   </div>
   <div class="flex items-center justify-between">
-    <div v-if="subjectsStore.startTime" class="flex gap-2 items-center">
+    <div
+      v-if="subjectsStore.startTime"
+      class="flex items-center gap-2"
+    >
       <p>Heure de début du stream</p>
 
       <UInput
@@ -87,16 +89,16 @@
         "
         @update:model-value="
           (e) => {
-            console.log([e, subjectsStore.startTime]);
+            console.log([e, subjectsStore.startTime])
             if (subjectsStore.startTime && typeof e === 'string') {
-              const [hours, minutes] = e.split(':');
-              const newDate = new Date(subjectsStore.startTime);
-              newDate.setHours(Number(hours));
-              newDate.setMinutes(Number(minutes));
-              newDate.setSeconds(0);
+              const [hours, minutes] = e.split(':')
+              const newDate = new Date(subjectsStore.startTime)
+              newDate.setHours(Number(hours))
+              newDate.setMinutes(Number(minutes))
+              newDate.setSeconds(0)
 
               if (!isNaN(newDate.getTime())) {
-                subjectsStore.startTime = newDate;
+                subjectsStore.startTime = newDate
               }
             }
           }
@@ -110,10 +112,9 @@
       {{ elapsedTime }}
 
       {{
-        !elapsedTime.includes("h")
-          ? "minute" +
-            (["0", "1"].some((value) => value === elapsedTime) ? "" : "s")
-          : ""
+        !elapsedTime.includes('h')
+          ? 'minute' + (['0', '1'].some((value) => value === elapsedTime) ? '' : 's')
+          : ''
       }}
 
       <UPopover
@@ -126,37 +127,40 @@
           icon="ic:sharp-edit"
           size="md"
           variant="ghost"
-          class="text-slate-100 hover:text-white ms-4"
+          class="ms-4 text-slate-100 hover:text-white"
         />
 
         <template #content="{ close }">
-          <div class="p-4 w-100 bg-stone-800">
+          <div class="w-100 bg-stone-800 p-4">
             <p class="text-sm">
-              Entrer le temps écoulé depuis le début du stream en minute (ex:
-              15) ou en heure (ex: 1h30):
+              Entrer le temps écoulé depuis le début du stream en minute (ex: 15) ou en heure (ex:
+              1h30):
             </p>
 
             <UForm
               v-if="subjectsStore.startTime"
               :state
-              class="flex gap-2 items-center justify-end"
+              class="flex items-center justify-end gap-2"
               @submit="
                 (e) => {
-                  const timerInput = parseTimerInput(e.data.streamTimeElapsed);
+                  const timerInput = parseTimerInput(e.data.streamTimeElapsed)
                   if (subjectsStore.startTime && timerInput !== null) {
-                    const newDate = new Date(Date.now() - timerInput);
-                    newDate.setSeconds(0);
+                    const newDate = new Date(Date.now() - timerInput)
+                    newDate.setSeconds(0)
                     if (!isNaN(newDate.getTime())) {
-                      subjectsStore.startTime = newDate;
+                      subjectsStore.startTime = newDate
 
-                      state.streamTimeElapsed = undefined;
-                      close();
+                      state.streamTimeElapsed = undefined
+                      close()
                     }
                   }
                 }
               "
             >
-              <UFormField name="streamTimeElapsed" class="w-16">
+              <UFormField
+                name="streamTimeElapsed"
+                class="w-16"
+              >
                 <UInput
                   v-model="state.streamTimeElapsed"
                   type="text"
@@ -165,7 +169,7 @@
                   :ui="{ base: elapsedTime.includes('h') ? ['pe-3'] : [] }"
                   @vue:before-mount="
                     () => {
-                      state.streamTimeElapsed = elapsedTime;
+                      state.streamTimeElapsed = elapsedTime
                     }
                   "
                 >
@@ -187,42 +191,39 @@
 </template>
 
 <script setup lang="ts">
-import { useSubjectsStore } from "~/stores/subjects";
+  import { useSubjectsStore } from '~/stores/subjects'
 
-const subjectsStore = useSubjectsStore();
+  const subjectsStore = useSubjectsStore()
 
-const state = reactive({
-  streamTimeElapsed: undefined as string | undefined,
-});
+  const state = reactive({
+    streamTimeElapsed: undefined as string | undefined,
+  })
 
-const elapsedTime = ref(
-  computeElapsedTime(
-    subjectsStore.startTime?.getTime() ?? Date.now(),
-    Date.now()
+  const elapsedTime = ref(
+    computeElapsedTime(subjectsStore.startTime?.getTime() ?? Date.now(), Date.now()),
   )
-);
 
-watch(
-  () => subjectsStore.startTime,
-  () => {
-    elapsedTime.value = computeElapsedTime(
-      subjectsStore.startTime?.getTime() ?? Date.now(),
-      Date.now()
-    );
-  }
-);
+  watch(
+    () => subjectsStore.startTime,
+    () => {
+      elapsedTime.value = computeElapsedTime(
+        subjectsStore.startTime?.getTime() ?? Date.now(),
+        Date.now(),
+      )
+    },
+  )
 
-onMounted(() => {
-  const interval = setInterval(() => {
-    const newElapsedTime = computeElapsedTime(
-      subjectsStore.startTime?.getTime() ?? Date.now(),
-      Date.now()
-    );
-    if (newElapsedTime !== elapsedTime.value) {
-      elapsedTime.value = newElapsedTime;
-    }
-  }, 1000);
+  onMounted(() => {
+    const interval = setInterval(() => {
+      const newElapsedTime = computeElapsedTime(
+        subjectsStore.startTime?.getTime() ?? Date.now(),
+        Date.now(),
+      )
+      if (newElapsedTime !== elapsedTime.value) {
+        elapsedTime.value = newElapsedTime
+      }
+    }, 1000)
 
-  return () => clearInterval(interval);
-});
+    return () => clearInterval(interval)
+  })
 </script>
