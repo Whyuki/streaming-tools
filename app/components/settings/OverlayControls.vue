@@ -105,13 +105,15 @@
     </div>
 
     <p class="flex items-center">
-      Stream depuis
+      Temps écoulé :
 
       {{ elapsedTime }}
 
       {{
-        (!elapsedTime.includes("h") ? "minute" : "") +
-        (["0", "1"].some((value) => value === elapsedTime) ? "" : "s")
+        !elapsedTime.includes("h")
+          ? "minute" +
+            (["0", "1"].some((value) => value === elapsedTime) ? "" : "s")
+          : ""
       }}
 
       <UPopover
