@@ -161,9 +161,8 @@
                 "
                 type="submit"
                 size="md"
-                color="primary"
                 variant="ghost"
-                class="hover:text-white"
+                class="hover:text-white text-slate-300"
               />
 
               <UPopover
@@ -175,9 +174,8 @@
                 <UButton
                   icon="ic:sharp-delete"
                   size="md"
-                  color="primary"
                   variant="ghost"
-                  class="hover:text-red-700"
+                  class="hover:text-red-700 text-slate-300"
                 />
 
                 <template #content>
