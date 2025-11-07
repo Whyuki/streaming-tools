@@ -1,8 +1,8 @@
 export function parseTimerInput(str: string): number | null {
   const regex = /^(?:(?<hours>\d{1,2})?h)?(?<minutes>\d{0,2})$/;
-  const match = regex.exec(str);
+  const match = regex.exec(str.replace(/\s+/g, ""));
 
-  if (typeof str === "string" && match?.groups) {
+  if (match?.groups) {
     const { hours, minutes } = match.groups;
     const elapsedTimeInMs =
       Number(hours || 0) * 60 * 60 * 1000 + Number(minutes || 0) * 60 * 1000;
