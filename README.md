@@ -56,7 +56,7 @@ npm run preview
 1. **In OBS**: Add a Browser source pointing to this application
 2. Crop the source to display only your chosen overlay (full or compact size)
 
-   > **Note:** To interact with the controls (manage subjects, start/stop timing), you need to interact with the browser source in OBS.
+   > **Note:** To interact with the controls (manage subjects, start timing), you need to interact with the browser source in OBS.
 
 3. Add subjects to your agenda via the control panel
 4. Start the agenda to begin timing 
