@@ -8,7 +8,7 @@
     <div id="overlay" class="ms-8">
       <OverlayObs :style="{ width: overlayStore.overlayWidth + 'px' }" />
     </div>
-    <div id="overlay" class="ms-8">
+    <div id="overlay" class="ms-16">
       <OverlayObs
         :style="{ width: overlayStore.smallOverlayWidth + 'px' }"
         small
