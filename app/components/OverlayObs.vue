@@ -24,12 +24,12 @@
         <div
           class="inline-flex items-start gap-1 flex-col flex-1 min-w-0 ms-1.5"
         >
-          <!-- :class="{ '': subject.sources.length === 0 && !props.small }" -->
           <p class="text-xl overflow-hidden wrap-break-word w-full">
             {{ subject.title }}
             <span
-            v-if="subject.sources.length === 0 && !props.small"
-            class="invisible inline-flex h-1 w-25"></span>
+              v-if="subject.sources.length === 0 && !props.small"
+              class="invisible inline-flex h-1 w-25"
+            ></span>
           </p>
           <ul
             v-if="!props.small && subject.sources.length > 0"
@@ -108,8 +108,6 @@
 import { useSubjectsStore } from "~/stores/subjects";
 
 const subjectsStore = useSubjectsStore();
-
-const overlayStore = useOverlayStore();
 
 const props = defineProps<{
   small?: boolean;

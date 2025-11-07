@@ -16,7 +16,7 @@
           </p>
           <div class="flex justify-end">
             <UButton
-              class="bg-red-800"
+              class="bg-red-800 hover:bg-red-700"
               variant="solid"
               @click="
                 () => {
@@ -56,7 +56,7 @@
           </p>
           <div class="flex justify-end">
             <UButton
-              class="bg-red-800"
+              class="bg-red-800 hover:bg-red-700"
               variant="solid"
               @click="
                 () => {
@@ -79,7 +79,6 @@
       type="time"
       name="streamStartTime"
       placeholder="HH:MM"
-      _class="w-24"
       :model-value="
         String(subjectsStore.startTime.getHours()).padStart(2, '0') +
         ':' +
@@ -104,33 +103,73 @@
     />
   </div>
   <div v-if="subjectsStore.startTime" class="flex gap-2 items-center mb-4">
-    <p>Stream depuis</p>
-    <UInput
-      type="text"
-      icon="ic:sharp-timer"
-      name="streamTimeElapsed"
-      placeholder="durée"
-      :class="elapsedTime.includes('h') ? 'w-22' : 'w-31'"
-      :ui="{ base: elapsedTime.includes('h') ? ['pe-3'] : [] }"
-      :model-value="elapsedTime"
-      @update:model-value="
+    <UForm
+      :state
+      @submit="
         (e) => {
-          const timerInput = parseTimerInput(e);
-          if (subjectsStore.startTime && timerInput) {
+          if (!editingTimeElapsed) {
+            editingTimeElapsed = true;
+            return;
+          }
+          const timerInput = parseTimerInput(e.data.streamTimeElapsed);
+          if (subjectsStore.startTime && timerInput !== null) {
             const newDate = new Date(Date.now() - timerInput);
             newDate.setSeconds(0);
-
             if (!isNaN(newDate.getTime())) {
               subjectsStore.startTime = newDate;
+              editingTimeElapsed = false;
+              state.streamTimeElapsed = undefined;
             }
           }
         }
       "
     >
-      <template v-if="elapsedTime && !elapsedTime.includes('h')" #trailing>
-        <span class="text-zinc-400">minutes</span>
-      </template>
-    </UInput>
+      <p>Stream depuis</p>
+      <span
+        v-if="!editingTimeElapsed"
+        type="text"
+        icon="ic:sharp-timer"
+        name="streamTimeElapsed"
+        :class="elapsedTime.includes('h') ? 'w-22' : 'w-31'"
+        :ui="{ base: elapsedTime.includes('h') ? ['pe-3'] : [] }"
+      >
+        {{ elapsedTime }}
+        <span v-show="!elapsedTime.includes('h')" class="text-zinc-400"
+          >minutes</span
+        >
+      </span>
+      <UInput
+        v-else
+        v-model="state.streamTimeElapsed"
+        type="text"
+        icon="ic:sharp-timer"
+        name="streamTimeElapsed"
+        placeholder="durée"
+        autofocus
+        :class="elapsedTime.includes('h') ? 'w-22' : 'w-31'"
+        :ui="{ base: elapsedTime.includes('h') ? ['pe-3'] : [] }"
+        @vue:before-mount="
+          () => {
+            state.streamTimeElapsed = elapsedTime;
+          }
+        "
+      >
+        <template v-if="elapsedTime && !elapsedTime.includes('h')" #trailing>
+          <span class="text-zinc-400">minutes</span>
+        </template>
+      </UInput>
+      <UButton
+        type="submit"
+        :icon="editingTimeElapsed ? 'ic:sharp-check' : 'ic:sharp-edit'"
+        size="md"
+        :variant="editingTimeElapsed ? 'solid' : 'ghost'"
+        :class="{
+          ' bg-green-700 text-slate-100 hover:bg-green-600 hover:text-white':
+            editingTimeElapsed,
+          'text-slate-100 hover:text-white': !editingTimeElapsed,
+        }"
+      />
+    </UForm>
   </div>
 </template>
 
@@ -138,6 +177,12 @@
 import { useSubjectsStore } from "~/stores/subjects";
 
 const subjectsStore = useSubjectsStore();
+
+const editingTimeElapsed = ref(false);
+
+const state = reactive({
+  streamTimeElapsed: undefined as string | undefined,
+});
 
 const elapsedTime = ref(
   computeElapsedTime(

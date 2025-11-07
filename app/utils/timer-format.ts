@@ -16,7 +16,7 @@ export function parseTimerInput(str: string): number | null {
 export function computeElapsedTime(
   fromMs: number,
   toMs: number,
-  addMinutePadding = false
+  addMinutePadding = true
 ): string {
   const elapsedMs = toMs - fromMs;
   const totalMinutes = Math.floor(elapsedMs / (60 * 1000));
@@ -24,7 +24,7 @@ export function computeElapsedTime(
   const minutes = totalMinutes % 60;
 
   if (hours < 0 || minutes < 0) {
-    return "";
+    return "0";
   }
 
   return hours

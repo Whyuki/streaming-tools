@@ -77,7 +77,7 @@
                         subjectsStore.startTime.getTime(),
                         subject.startTime.getTime(),
                         true
-                      )
+                      ) 
                     : 0
                 }}
                 '
@@ -137,9 +137,8 @@
                 @update:model-value="
                   (e) => {
                     if (subject.startTime && subjectsStore.startTime) {
-                      console.log('e:', e, parseTimerInput(e));
                       const timerInput = parseTimerInput(e);
-                      if (timerInput) {
+                      if (timerInput !== null) {
                         const newDate = new Date(
                           subjectsStore.startTime.getTime() + timerInput
                         );
@@ -162,8 +161,7 @@
                 "
                 type="submit"
                 size="md"
-                :variant="
-                  subject.id === editModeSubjectId ? 'solid' : 'ghost'"
+                :variant="subject.id === editModeSubjectId ? 'solid' : 'ghost'"
                 :class="{
                   ' bg-green-700 text-slate-100 hover:bg-green-600 hover:text-white':
                     subject.id === editModeSubjectId,
@@ -196,7 +194,7 @@
                     </p>
                     <div class="flex justify-end">
                       <UButton
-                        class="bg-red-800"
+                        class="bg-red-800 hover:bg-red-700"
                         variant="solid"
                         @click="subjectsStore.removeSubject(subject.id)"
                       >
@@ -258,6 +256,8 @@
 </template>
 
 <script setup lang="ts">
+
+//TODO: add cancel button on edit mode 
 import { useSubjectsStore } from "~/stores/subjects";
 
 const subjectsStore = useSubjectsStore();
