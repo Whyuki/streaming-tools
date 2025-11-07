@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-4 gap-2 my-2">
+  <div class="grid grid-cols-4 gap-2 mt-10 mb-4">
     <h2 class="text-xl font-bold col-span-2">Sujets</h2>
     <UButton
       :disabled="

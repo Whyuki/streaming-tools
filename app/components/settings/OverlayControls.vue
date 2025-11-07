@@ -104,22 +104,16 @@
       />
     </div>
 
-    <p class="">
+    <p class="flex items-center">
       Stream depuis
-      <span
-        type="text"
-        icon="ic:sharp-timer"
-        name="streamTimeElapsed"
-        :class="elapsedTime.includes('h') ? 'w-22' : 'w-31'"
-        :ui="{ base: elapsedTime.includes('h') ? ['pe-3'] : [] }"
-      >
-        {{ elapsedTime }}
-        <span v-show="!elapsedTime.includes('h')"
-          >minute{{
-            ["0", "1"].some((value) => value === elapsedTime) ? "" : "s"
-          }}</span
-        >
-      </span>
+
+      {{ elapsedTime }}
+
+      {{
+        (!elapsedTime.includes("h") ? "minute" : "") +
+        (["0", "1"].some((value) => value === elapsedTime) ? "" : "s")
+      }}
+
       <UPopover
         :content="{
           align: 'end',
@@ -130,12 +124,12 @@
           icon="ic:sharp-edit"
           size="md"
           variant="ghost"
-          class="text-slate-100 hover:text-white"
+          class="text-slate-100 hover:text-white ms-4"
         />
 
         <template #content="{ close }">
           <div class="p-4 w-100 bg-stone-800">
-            <p class="text-sm ">
+            <p class="text-sm">
               Entrer le temps écoulé depuis le début du stream en minute (ex:
               15) ou en heure (ex: 1h30):
             </p>
