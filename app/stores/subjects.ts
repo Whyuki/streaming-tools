@@ -16,22 +16,7 @@ export const useSubjectsStore = defineStore("subject", () => {
   const nextId = ref(0);
   const activeSubjectIndex = ref<number | null>(null);
   const startTime = ref<Date | null>(null);
-  const subjects = ref<Subject[]>([
-    {
-      id: nextId.value++,
-      title: "Bonjour",
-      status: "upcoming",
-      startTime: null,
-      sources: [],
-    },
-    {
-      id: nextId.value++,
-      title: "Sommaire",
-      status: "upcoming",
-      startTime: null,
-      sources: [],
-    },
-  ]);
+  const subjects = ref<Subject[]>([]);
 
   function reset() {
     nextId.value = 0;
@@ -40,20 +25,22 @@ export const useSubjectsStore = defineStore("subject", () => {
     subjects.value = [
       {
         id: nextId.value++,
-        title: "Bonjour",
+        title: "BONJOUR",
         status: "upcoming",
         startTime: null,
         sources: [],
       },
       {
         id: nextId.value++,
-        title: "Sommaire",
+        title: "SOMMAIRE",
         status: "upcoming",
         startTime: null,
         sources: [],
       },
     ];
   }
+
+  reset();
 
   const previousData = localStorage.getItem("subjectsStore");
   if (previousData) {
