@@ -72,7 +72,7 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
       - name: test
-        run: ls -la .nuxt/**
+        run: env
       - name: Static HTML export with Nuxt
         run: ${{ steps.detect-package-manager.outputs.manager }} run build:github-pages
       - name: Upload artifact
