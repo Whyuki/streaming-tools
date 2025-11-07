@@ -69,7 +69,7 @@
                   />
                 </li>
               </ul>
-              <span class="flex items-center">
+              <span v-if="subject.startTime" class="flex items-center">
                 <UIcon name="ic:sharp-timer" size="20" class="mr-1" />
                 {{
                   subject.startTime && subjectsStore.startTime
@@ -77,7 +77,7 @@
                         subjectsStore.startTime.getTime(),
                         subject.startTime.getTime(),
                         true
-                      ) 
+                      )
                     : 0
                 }}
                 '
@@ -256,8 +256,7 @@
 </template>
 
 <script setup lang="ts">
-
-//TODO: add cancel button on edit mode 
+//TODO: add cancel button on edit mode
 import { useSubjectsStore } from "~/stores/subjects";
 
 const subjectsStore = useSubjectsStore();
