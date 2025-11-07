@@ -121,6 +121,7 @@
                 </template>
               </UInputMenu>
               <UInput
+                v-if="subject.startTime && subjectsStore.startTime"
                 icon="ic:sharp-timer"
                 type="text"
                 class="w-24"
@@ -161,8 +162,14 @@
                 "
                 type="submit"
                 size="md"
-                variant="ghost"
-                class="hover:text-white text-slate-300"
+                :variant="
+                  subject.id === editModeSubjectId ? 'solid' : 'ghost'"
+                :class="{
+                  ' bg-green-700 text-slate-100 hover:bg-green-600 hover:text-white':
+                    subject.id === editModeSubjectId,
+                  'text-slate-100 hover:text-white':
+                    subject.id !== editModeSubjectId,
+                }"
               />
 
               <UPopover
@@ -179,15 +186,17 @@
                 />
 
                 <template #content>
-                  <div class="flex flex-col p-4 bg-slate-700">
-                    <p class="mb-4">
-                      Êtes-vous sûr de vouloir supprimer le sujet "{{
+                  <div class="flex flex-col p-4 bg-slate-950">
+                    <p class="mb-4 overflow-hidden wrap-break-word w-125">
+                      Êtes-vous sûr de vouloir supprimer le sujet
+                      <span class="font-medium text-orange-300">{{
                         subject.title
-                      }}" ?
+                      }}</span>
+                      ?
                     </p>
                     <div class="flex justify-end">
                       <UButton
-                        color="error"
+                        class="bg-red-800"
                         variant="solid"
                         @click="subjectsStore.removeSubject(subject.id)"
                       >

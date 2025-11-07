@@ -8,7 +8,7 @@
     >
       <UButton block>Nouveau programme</UButton>
       <template #content="{ close }">
-        <div class="flex flex-col p-4 bg-slate-700 w-80">
+        <div class="flex flex-col p-4 bg-slate-950 w-80">
           <p>Êtes-vous sûr de vouloir créer un nouveau programme ?</p>
           <p class="mb-4">
             Cela réinitialisera le stream en cours et supprimera tous les
@@ -16,7 +16,7 @@
           </p>
           <div class="flex justify-end">
             <UButton
-              color="error"
+              class="bg-red-800"
               variant="solid"
               @click="
                 () => {
@@ -48,7 +48,7 @@
     >
       <UButton block> Redémarrer le stream </UButton>
       <template v-if="subjectsStore.startTime" #content="{ close }">
-        <div class="flex flex-col p-4 bg-slate-700 w-80">
+        <div class="flex flex-col p-4 bg-slate-950 w-80">
           <p>Êtes-vous sûr de vouloir redémarrer le stream ?</p>
           <p class="mb-4">
             Cela réinitialisera l'heure de début du stream ainsi que l'état
@@ -56,7 +56,7 @@
           </p>
           <div class="flex justify-end">
             <UButton
-              color="error"
+              class="bg-red-800"
               variant="solid"
               @click="
                 () => {
