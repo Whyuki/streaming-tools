@@ -288,53 +288,61 @@
     }
   }
 
-  const items = ref<SourceItem[]>([
-    {
-      value: 'liberation',
-      label: 'Libération',
-      avatar: { src: '/logos/liberation.jpg', alt: 'Libération' },
-    },
-    {
-      value: 'lemonde',
-      label: 'Le Monde',
-      avatar: { src: '/logos/le_monde.png', alt: 'Le Monde' },
-    },
-    {
-      value: 'lefigaro',
-      label: 'Le Figaro',
-      avatar: { src: '/logos/figaro.png', alt: 'Le Figaro' },
-    },
-    {
-      value: 'lacroix',
-      label: 'La Croix',
-      avatar: { src: '/logos/la_croix.png', alt: 'La Croix' },
-    },
-    {
-      value: 'leparisien',
-      label: 'Le Parisien',
-      avatar: { src: '/logos/le_parisien.png', alt: 'Le Parisien' },
-    },
-    {
-      value: 'lhumanite',
-      label: "L'Humanité",
-      avatar: { src: '/logos/l_humanite.png', alt: "L'Humanité" },
-    },
-    {
-      value: 'lesechos',
-      label: 'Les Échos',
-      avatar: { src: '/logos/Les_Echos.png', alt: 'Les Échos' },
-    },
-    {
-      value: 'lequipe',
-      label: "L'Équipe",
-      avatar: { src: '/logos/l_Equipe.png', alt: "L'Équipe" },
-    },
-    {
-      value: 'lopinion',
-      label: "L'Opinion",
-      avatar: { src: '/logos/l_opinion.png', alt: "L'Opinion" },
-    },
-  ])
+  const items = ref<SourceItem[]>(
+    [
+      {
+        value: 'liberation',
+        label: 'Libération',
+        avatar: { src: '/logos/liberation.jpg', alt: 'Libération' },
+      },
+      {
+        value: 'lemonde',
+        label: 'Le Monde',
+        avatar: { src: '/logos/le_monde.png', alt: 'Le Monde' },
+      },
+      {
+        value: 'lefigaro',
+        label: 'Le Figaro',
+        avatar: { src: '/logos/figaro.png', alt: 'Le Figaro' },
+      },
+      {
+        value: 'lacroix',
+        label: 'La Croix',
+        avatar: { src: '/logos/la_croix.png', alt: 'La Croix' },
+      },
+      {
+        value: 'leparisien',
+        label: 'Le Parisien',
+        avatar: { src: '/logos/le_parisien.png', alt: 'Le Parisien' },
+      },
+      {
+        value: 'lhumanite',
+        label: "L'Humanité",
+        avatar: { src: '/logos/l_humanite.png', alt: "L'Humanité" },
+      },
+      {
+        value: 'lesechos',
+        label: 'Les Échos',
+        avatar: { src: '/logos/Les_Echos.png', alt: 'Les Échos' },
+      },
+      {
+        value: 'lequipe',
+        label: "L'Équipe",
+        avatar: { src: '/logos/l_Equipe.png', alt: "L'Équipe" },
+      },
+      {
+        value: 'lopinion',
+        label: "L'Opinion",
+        avatar: { src: '/logos/l_opinion.png', alt: "L'Opinion" },
+      },
+    ].map((item) => ({
+      ...item,
+      avatar: {
+        ...item.avatar,
+        src: (useRuntimeConfig().app.baseURL + item.avatar.src).replace(/\/\/+/g, '/'),
+      },
+    })),
+  )
 
   interface SourceItem {
     label: string
