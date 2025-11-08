@@ -1,5 +1,5 @@
 <template>
-  <pre class="overflow-hidden pb-4 text-sm wrap-break-word whitespace-pre-wrap text-muted">{{
+  <pre class="overflow-hidden pb-4 text-sm wrap-break-word whitespace-pre-wrap text-muted select-all">{{
     computedSubjects
   }}</pre>
 </template>
