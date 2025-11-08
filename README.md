@@ -45,11 +45,7 @@ Build for production:
 npm run build
 ```
 
-Preview production build:
-
-```bash
-npm run preview
-```
+No server is required, the generated static files will be placed in the `./output/public` directory.
 
 ## Usage
 
@@ -59,9 +55,9 @@ npm run preview
    > **Note:** To interact with the controls (manage subjects, start timing), you need to interact with the browser source in OBS.
 
 3. Add subjects to your agenda via the control panel
-4. Start the agenda to begin timing 
+4. Start the agenda to begin timing
 
    > **Note:** Start the agenda ideally at the start of the stream.
-   But you can change the start time by modifying the displayed time or the time elapsed (since the stream started).
+   > But you can change the start time by modifying the displayed time or the time elapsed (since the stream started).
 
 5. Use next/previous buttons to navigate through subjects
