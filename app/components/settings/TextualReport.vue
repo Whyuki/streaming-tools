@@ -1,7 +1,8 @@
 <template>
-  <pre class="overflow-hidden pb-4 text-sm wrap-break-word whitespace-pre-wrap text-muted select-all">{{
-    computedSubjects
-  }}</pre>
+  <pre
+    class="overflow-hidden pb-4 text-sm wrap-break-word whitespace-pre-wrap text-muted select-all"
+    >{{ computedSubjects }}</pre
+  >
 </template>
 
 <script setup lang="ts">

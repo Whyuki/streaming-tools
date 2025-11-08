@@ -63,7 +63,8 @@
         <div class="flex w-120 flex-col bg-slate-950 p-4">
           <p>Êtes-vous sûr de vouloir redémarrer le sommaire ?</p>
           <p class="mb-4">
-            Cela réinitialisera uniquement l'heure de début ainsi que l'état d'avancement des sujets.
+            Cela réinitialisera uniquement l'heure de début ainsi que l'état d'avancement des
+            sujets.
           </p>
           <div class="flex justify-end">
             <UButton
