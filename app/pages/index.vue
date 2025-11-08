@@ -50,8 +50,18 @@
                 variant="soft"
                 size="lg"
                 class="bg-transparent px-1 py-0 text-[#777dcb] select-all"
-                >.whyuki</UBadge
               >
+                <ULink
+                  as="a"
+                  href="https://discord.gg/CPgEwb8g"
+                  target="_blank"
+                  rel="noopener
+                  noreferrer"
+                  class="e inline-flex items-center gap-2 hover:underline"
+                >
+                  .whyuki
+                </ULink>
+              </UBadge>
               ou sur
               <ULink
                 as="a"
@@ -66,7 +76,7 @@
                   size="20"
                 />
               </ULink>
-              pour toute aide ou modifications.
+              pour toute aide ou modification.
             </p>
           </div>
         </div>
